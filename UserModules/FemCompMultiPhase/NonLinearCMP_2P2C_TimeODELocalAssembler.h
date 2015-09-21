@@ -32,8 +32,8 @@
 * onlye difference is that no compound information is provided and no molecular
 * diffusion is included in the assembly.
 */
-template <class T, class T_NODAL_FUNCTION_SCALAR, class T_FUNCTION_DATA>
-class NonLinearCMP_2P2C_TimeODELocalAssembler : public T
+template <class BASE_CRTP, class T_NODAL_FUNCTION_SCALAR, class T_FUNCTION_DATA>
+class NonLinearCMP_2P2C_TimeODELocalAssembler : public BASE_CRTP
 {
 public:
 	typedef MathLib::LocalVector LocalVectorType;
