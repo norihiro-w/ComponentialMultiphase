@@ -52,7 +52,7 @@ public:
         // so that the in the next Newton iteration, concentrations are calculated
         // based on the new x_new values
         _assemblerJ->get_function_data()->update_xi_mob_nodal_values( x_new ); 
-		_assemblerJ
+		//_assemblerJ
     };
 
 private:

@@ -283,7 +283,7 @@ protected:
 			MathLib::LocalMatrix &Np = *fe->getBasisFunction();
 			MathLib::LocalMatrix &dNp = *fe->getGradBasisFunction();
 
-			setNu_Matrix_byPoint(n_dim, n_nodes, dNp, matN);
+			//setNu_Matrix_byPoint(n_dim, n_nodes, dNp, matN);
 
 			RHO_L = 0.0;
 			RHO_G = 0.0;

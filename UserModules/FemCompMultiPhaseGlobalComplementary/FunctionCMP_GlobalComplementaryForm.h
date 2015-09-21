@@ -474,6 +474,17 @@ private:
 	MyNodalFunctionVector* _vec_Res_C;
 
 	/**
+	  * derivative 
+	  * for each node 8 by 2 matrix. 
+	  */
+	MyNodalFunctionMatrix* _mat_secDer;
+	/**
+	* define a vectior to store the value of Omega M and Characteristic function
+	* therefore the size should be 3.
+	*/
+	MyNodalFunctionVector* _vec_tempVar;
+
+	/**
 	  * the id of the msh applied in this process
 	  */
 	size_t _msh_id;
