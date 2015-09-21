@@ -273,7 +273,7 @@ protected:
 			PC_gp(0, 0) = pm->getPc_bySat(S_gp(0, 0));
 			dPC_dSg_gp(0, 0) = pm->Deriv_dPCdS(S_gp(0, 0));
 			
-			isinf = _finite(dPC_dSg_gp(0, 0));
+			isinf = std::isfinite(dPC_dSg_gp(0, 0));
 			if (isinf == 0)
 			{
 				dPC_dSg_gp(0, 0) = 0.0;

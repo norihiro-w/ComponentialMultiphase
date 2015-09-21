@@ -285,7 +285,7 @@ protected:
 			RHO_L = rho_L_h_gp(0) + rho_L_std;
 			RHO_G = rho_G_h_gp(0) + rho_G_w_gp(0);
 			
-			isinf = _finite(dPC_dSg_gp(0));
+			isinf = std::isfinite(dPC_dSg_gp(0));
 			if (isinf==0)
 			{
 				dPC_dSg_gp(0) = 0.0;
