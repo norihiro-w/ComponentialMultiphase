@@ -267,7 +267,7 @@ void FunctionCMP_CapPresFormular<T1, T2>::output(const NumLib::TimeStep &/*time*
 
 
 template <class T1, class T2>
-void FunctionCMP_CapPresFormular<T1, T2>::calc_nodal_eos_sys(double dt = 0.0)
+void FunctionCMP_CapPresFormular<T1, T2>::calc_nodal_eos_sys(double dt)
 {
 	/*std::size_t node_id(0);
 	//MathLib::LocalMatrix matSecDer = MathLib::LocalMatrix::Zero(8, 2);
