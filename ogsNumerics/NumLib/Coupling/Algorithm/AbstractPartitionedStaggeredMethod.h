@@ -51,8 +51,11 @@ private:
             const ParameterProblemMappingTable::PairSysVarId &sysvarid = mapping._map_paraId2subproblem[i];
             const ICoupledSystem *solution = sysvarid.first;
             //size_t internalId = sysvarid.second;
+            auto parameter = parameters_t_n.get(i);
+            if (!parameter)
+                continue;
             if (solution!=0)
-                parameters_t_n1.set(i, *parameters_t_n.get(i));
+                parameters_t_n1.set(i, *parameter);
         }
     }
 private:

@@ -53,7 +53,10 @@ int AsyncPartitionedSystem::solveTimeStep(const TimeStep &time)
         for (size_t i=0; i<n_vars; i++) {
             const NumLib::ParameterProblemMappingTable::PairSysVarId &v = _map._map_paraId2subproblem[i];
             const NumLib::ICoupledSystem *tmp_problem = v.first;
-            vars_t_n1->set(i, *tmp_problem->getOutput(v.second));
+            auto parameter = tmp_problem->getOutput(v.second);
+            if (!parameter)
+                continue;
+            vars_t_n1->set(i, *parameter);
         }
     }
     vars_t_n1->move(_vars_t_n);
