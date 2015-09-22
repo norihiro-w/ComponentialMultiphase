@@ -30,7 +30,7 @@ bool FunctionCMP_GlobalComplementaryForm<T1, T2>::initialize(const BaseLib::Opti
 
 	Ogs6FemData* femData = Ogs6FemData::getInstance();
 	_msh_id = option.getOptionAsNum<size_t>("MeshID");
-	size_t time_id = option.getOptionAsNum<size_t>("TimeGroupID");
+	size_t time_id = option.getOptionAsNum<int>("TimeGroupID");
 	NumLib::ITimeStepFunction* tim = femData->list_tim[time_id];
 
 	//mesh and FE objects
@@ -292,6 +292,12 @@ void FunctionCMP_GlobalComplementaryForm<T1, T2>::output(const NumLib::TimeStep 
 
 }
 
+
+template <class T1, class T2>
+void FunctionCMP_GlobalComplementaryForm<T1, T2>::calc_basis_function(double dt)
+{
+
+}
 
 template <class T1, class T2>
 void FunctionCMP_GlobalComplementaryForm<T1, T2>::calc_nodal_eos_sys(double dt)

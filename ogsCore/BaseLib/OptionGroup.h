@@ -17,6 +17,8 @@
 #include <ostream>
 #include <vector>
 
+#include <iostream>
+
 #include "StringTools.h"
 #include "OptionNode.h"
 #include "OptionLeaf.h"
@@ -129,7 +131,15 @@ public:
            if (itr->second->isString()) {
                 return BaseLib::str2number<T>(static_cast<OptionLeaf<std::string>*>(itr->second)->getValue());
             } else {
-                return static_cast<OptionLeaf<T>*>(itr->second)->getValue();
+			   auto leaf = dynamic_cast<OptionLeaf<T>*>(itr->second);
+			   if (leaf == nullptr) {
+				   std::cout << __FILE__ << ":" << __LINE__ << ": Error getting value " << std::endl;
+				   return T{ 0 };
+			   }
+			   else {
+				   return leaf->getValue();
+			   }
+                //return static_cast<OptionLeaf<T>*>(itr->second)->getValue();
             }
         }
     }

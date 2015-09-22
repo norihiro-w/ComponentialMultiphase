@@ -124,7 +124,6 @@ void TemplateTransientDxFEMFunction_Global_Complementary<T1, T2, T3, T4>::eval(c
 	const SolutionLib::SolutionVector* u_n = this->_u_n0;
 	size_t num_node = _msh->getNumberOfNodes();
 	size_t num_var = _list_var.size();
-	mat_Jacobian = MathLib::LocalMatrix::Zero(num_var*num_node, num_var*num_node);
 	// const SolutionLib::SolutionVector* u_n = this->_u_n0;
 
     _linear_eqs->initialize();
