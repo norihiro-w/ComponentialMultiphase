@@ -100,7 +100,6 @@ CMediumProperties::CMediumProperties() :
     geo_area = 1.0;
 //    geo_type_name = "DOMAIN";             //OK
     vol_mat = 0.0;
-	int num_phases;//number of phases
     vol_bio = 0.0;
     vol_mat_model = 0;
     vol_bio_model = 0;
