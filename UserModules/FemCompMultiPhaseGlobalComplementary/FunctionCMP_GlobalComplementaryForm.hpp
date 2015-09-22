@@ -294,12 +294,6 @@ void FunctionCMP_GlobalComplementaryForm<T1, T2>::output(const NumLib::TimeStep 
 
 
 template <class T1, class T2>
-void FunctionCMP_GlobalComplementaryForm<T1, T2>::calc_basis_function(double dt)
-{
-
-}
-
-template <class T1, class T2>
 void FunctionCMP_GlobalComplementaryForm<T1, T2>::calc_nodal_eos_sys(double dt)
 {
 	// solve the EOS system on each node
