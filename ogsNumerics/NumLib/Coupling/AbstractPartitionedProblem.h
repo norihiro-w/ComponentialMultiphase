@@ -168,7 +168,8 @@ public:
                 if (sub_pr->hasOutputParameter(p_name)) {
                     size_t para_id = sub_pr->getOutputParameterID(p_name);
                     const Parameter* v = sub_pr->getOutput(para_id);
-                    BaseClass::setOutput(this_var_id, v);
+                    if (v)
+                        BaseClass::setOutput(this_var_id, v);
                     // make a link between this and sub-problem variable
                     ParameterProblemMappingTable::PairSysVarId parObj = std::make_pair(sub_pr, para_id);
                     _map._map_paraId2subproblem[internal_id] = parObj;
