@@ -345,7 +345,7 @@ public:
 	MyNodalFunctionVector* get_vec_tempVar(void) { return _vec_tempVar; };
 
 	LocalVector get_vec_Res(void) { return _vec_Res; };
-	LocalMatrix get_mat_Jacob(void){ return _mat_Jacob; };
+	MathLib::SparseMatrix& get_mat_Jacob(void){ return _mat_Jacob; };
 protected:
 	virtual void initializeTimeStep(const NumLib::TimeStep &time);
 
@@ -460,7 +460,7 @@ private:
 	std::vector<LocalMatrix> _elem_K_matrix;
 	std::vector<LocalMatrix> _elem_J_matrix;
 		
-	LocalMatrix _mat_Jacob;
+	MathLib::SparseMatrix _mat_Jacob;
 	LocalVector _vec_Res;
 	/**
 	  * derivative 

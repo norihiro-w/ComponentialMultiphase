@@ -109,7 +109,6 @@ private:
     //MyDiscreteSystem* _dis;
     FemLib::IFiniteElement* _fe;
 	UserLocalJacobianAssembler *_local_assembler;
-	MathLib::LocalMatrix mat_Jacobian;
 
 	
 };
@@ -171,16 +170,14 @@ template <class T_DIS_SYS, class T_LINEAR_SOLVER, class T_FUNCTION_DATA, class T
 void TemplateTransientDxFEMFunction_Global_Complementary<T_DIS_SYS, T_LINEAR_SOLVER, T_FUNCTION_DATA, T_LOCAL_JACOBIAN_ASSEMBLER>::GlobalJacobianAssembler(T_FUNCTION_DATA* _function_data, LinearSolverType & eqsJacobian_global)
 {
 	const size_t nnodes = _msh->getNumberOfNodes();
-	mat_Jacobian = MathLib::LocalMatrix::Zero(3 * nnodes, 3 * nnodes);
-	mat_Jacobian = _function_data->get_mat_Jacob();
-	double tmp(0.0);
+	auto& mat_Jacobian = _function_data->get_mat_Jacob();
 	for (size_t node_idx_row = 0; node_idx_row < nnodes; node_idx_row++){
 		for (size_t node_idx_col = 0; node_idx_col < 3*nnodes; node_idx_col++){
-			tmp = mat_Jacobian(2 * nnodes + node_idx_row, node_idx_col);
+			double const tmp =
+			    mat_Jacobian.coeff(2 * nnodes + node_idx_row, node_idx_col);
 			eqsJacobian_global.addA(3*node_idx_row+2, node_idx_col, -tmp);
 		}
 	}
 }
-
 
 

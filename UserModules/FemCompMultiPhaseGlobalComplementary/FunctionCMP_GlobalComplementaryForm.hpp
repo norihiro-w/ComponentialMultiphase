@@ -136,7 +136,10 @@ bool FunctionCMP_GlobalComplementaryForm<T1, T2>::initialize(const BaseLib::Opti
 	/**
 	* initialize the vector of tempVar
 	*/
-	_mat_Jacob = LocalMatrix::Zero(3 * n_nodes, 3 * n_nodes);
+	_mat_Jacob.resize(
+	    3 * n_nodes,
+	    3 * n_nodes);  // Resizing also initializes the matrix with zero
+
 	_vec_Res = LocalVector::Zero(3 * n_nodes);
 
 	//initialize the local M matrix and K matrix and partially Jacobian matrix
@@ -341,12 +344,12 @@ void FunctionCMP_GlobalComplementaryForm<T1, T2>::calc_nodal_eos_sys(double dt)
 		//_vec_Res(2 * num_nodes + node_id) = std::min{ input(2), C_h*(input(0) + output(2)) - rho_L_std*M_G*input(1) / M_L };
 		if (input(2) <= C_h*(input(0) + output(2)) - rho_L_std*M_G*input(1) / M_L){//then rho_L^h=C_h*PG
 			//Calc each entry of the mass matrix
-			_mat_Jacob(2 * num_nodes + node_id, 3 * node_id+2) = 1;
+			_mat_Jacob.coeffRef(2 * num_nodes + node_id, 3 * node_id+2) = 1;
 		}
 		else if (input(2) > C_h*(input(0) + output(2)) - rho_L_std*M_G*input(1) / M_L){//then rho_L^h=M^h*rho_L^std*X_L^h/M^w
-			_mat_Jacob(node_id + 2 * num_nodes, 3 * node_id) = C_h;
-			_mat_Jacob(node_id + 2 * num_nodes, 3 * node_id + 1) = -M_G*rho_L_std / M_L;
-			_mat_Jacob(node_id + 2 * num_nodes, 3 * node_id + 2) = C_h*output(3);
+			_mat_Jacob.coeffRef(node_id + 2 * num_nodes, 3 * node_id) = C_h;
+			_mat_Jacob.coeffRef(node_id + 2 * num_nodes, 3 * node_id + 1) = -M_G*rho_L_std / M_L;
+			_mat_Jacob.coeffRef(node_id + 2 * num_nodes, 3 * node_id + 2) = C_h*output(3);
 		}
 		// end
 	}
@@ -355,5 +358,3 @@ void FunctionCMP_GlobalComplementaryForm<T1, T2>::calc_nodal_eos_sys(double dt)
 	
 
 }
-
-
