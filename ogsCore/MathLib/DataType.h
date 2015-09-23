@@ -13,6 +13,7 @@
 #pragma once
 
 #include <Eigen>
+#include <Eigen/SparseCore>
 #include "MathLib/LinAlg/LinearEquation/EigenDenseLinearEquation.h"
 
 namespace MathLib
@@ -21,6 +22,8 @@ namespace MathLib
 typedef MathLib::EigenDenseLinearEquation LocalEquation;
 /// Local dense matrix type (row-majored)
 typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> LocalMatrix;
+/// Sparse matrix type (row-majored) for intermediate storage.
+typedef Eigen::SparseMatrix<double, Eigen::RowMajor> SparseMatrix;
 /// Local dense vector type
 typedef Eigen::VectorXd LocalVector;
 
