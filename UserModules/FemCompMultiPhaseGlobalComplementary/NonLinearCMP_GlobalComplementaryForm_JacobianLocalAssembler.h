@@ -143,7 +143,8 @@ public:
 			TMP_M_2 = (1.0 / dt) * M2 - (1. - _Theta) * K2;
 			local_r_2.noalias() -= TMP_M_2 * u0;
 			local_r_2.noalias() -= F2;
-			localJ.block(0, u_idx, u1.size(), 1) += (local_r_1 - local_r_2) / 2 / eps / (1 + std::abs(u1(u_idx)));
+			//localJ.block(0, u_idx, u1.size(), 1) += (local_r_1 - local_r_2) / 2 / eps / (1 + std::abs(u1(u_idx)));
+			localJ.col(u_idx) += (local_r_1 - local_r_2) / 2 / eps / (1 + std::abs(u1(u_idx)));
 			//debugging--------------------------
 			//std::cout << "localJ: \n";
 			//std::cout << localJ << std::endl;

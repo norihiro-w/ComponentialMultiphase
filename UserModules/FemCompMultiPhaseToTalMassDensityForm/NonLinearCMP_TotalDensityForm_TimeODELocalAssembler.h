@@ -249,10 +249,10 @@ protected:
 			dPC_dSg_gp(0) = pm->Deriv_dPCdS(S_gp(0));
 			//+++++++++++++++++++++++++End Calculation++++++++++++++++++++++++++++++++++++++++++++++
 			if (S_gp(0) <= 1e-14){
-				Charact_func = 0.0;
+				Charact_func = 0;
 			}
 			else
-				Charact_func = 1.0;
+				Charact_func = 1;
 			gamma_gp = 0;// _EOS->getweightedFunc(S_gp(0, 0));
 			//Calc each entry of the mass matrix
 			M(0, 0) = 0.0;

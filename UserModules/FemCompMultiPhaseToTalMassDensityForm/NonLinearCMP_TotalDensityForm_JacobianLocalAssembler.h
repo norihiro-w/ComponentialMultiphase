@@ -328,9 +328,9 @@ protected:
 			Omega_gp(0) = _EOS->Func_Omega(S_gp(0));
 			InterM_gp(0) = _EOS->Func_InterM(S_gp(0));
 			if (S_gp(0) <= 1e-14)
-				Charact_func = 0.0;
+				Charact_func = 0;
 			else
-				Charact_func = 1.0;
+				Charact_func = 1;
 			//+++++++++++++++++++++++++Calculate the derivatives +++++++++++++++++++++++++++++++++++
 			dSgdX_gp(0) = _EOS->Deriv_dSgdX(S_gp(0));
 			dSgdP_gp(0) = _EOS->Deriv_dSgdP(S_gp(0));
