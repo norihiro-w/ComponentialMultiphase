@@ -172,7 +172,7 @@ protected:
 			M(1, 0) = poro*rho_l_std*dPC_gp(0);
 			M(1, 1) = -poro*(rho_l_std / C_h)*dPC_gp(0);
 			//-------------debugging------------------------
-			std::cout << "M=" << std::endl;
+			//std::cout << "M=" << std::endl;
 			//std::cout << M << std::endl;
 			//--------------end debugging-------------------
 
