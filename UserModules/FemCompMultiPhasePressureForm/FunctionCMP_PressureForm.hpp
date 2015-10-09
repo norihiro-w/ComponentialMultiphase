@@ -30,7 +30,8 @@ bool FunctionCMP_PressureForm<T1, T2>::initialize(const BaseLib::Options &option
 
 	Ogs6FemData* femData = Ogs6FemData::getInstance();
 	_msh_id = option.getOptionAsNum<size_t>("MeshID");
-	size_t time_id = option.getOptionAsNum<size_t>("TimeGroupID");
+	//size_t time_id = option.getOptionAsNum<size_t>("TimeGroupID");
+	size_t time_id = option.getOptionAsNum<int>("TimeGroupID");
 	NumLib::ITimeStepFunction* tim = femData->list_tim[time_id];
 
 	//mesh and FE objects
