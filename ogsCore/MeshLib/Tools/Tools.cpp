@@ -122,12 +122,44 @@ void findEdgeElementsOnPolyline(IMesh * msh, GeoLib::Polyline const* poly, std::
     }
 };
 
+void findFaceElementsOnSurface(IMesh * msh, GeoLib::Surface const* poly, std::vector<IElement*> *vec_faces_on_surf)
+{
+    // get a list of nodes on the polyline
+    std::vector<size_t> nodes_on_surf;
+    findNodesOnSurface(msh, poly, &nodes_on_surf);
+    // get a list of elements having the nodes
+    std::vector<size_t> elements_near_surf;
+    findConnectedElements(msh, nodes_on_surf, elements_near_surf);
+    // get a list of edges made of the nodes
+    std::vector<IElement*> selected_faces;
+    createFaceElements(msh, elements_near_surf, selected_faces);
+    const size_t nr_faces = selected_faces.size();
+    for (size_t i=0; i<nr_faces; i++) {
+        IElement *face_e = selected_faces[i];
+        // check
+        size_t cnt_match = 0;
+        for (size_t j=0; j<face_e->getNumberOfNodes(); j++) {
+            //const INode* edge_nod = msh->getNode(edge_e->getNodeID(j));
+            if (std::find(nodes_on_surf.begin(), nodes_on_surf.end(), face_e->getNodeID(j)) != nodes_on_surf.end())
+                cnt_match++;
+            else
+                break;
+        }
+        // update the list
+        if (cnt_match==face_e->getNumberOfNodes())
+            vec_faces_on_surf->push_back(face_e);
+    }
+}
+
 /// find boundary elements located on given geometries
 void findBoundaryElementsOnGeometry(IMesh * msh, GeoLib::GeoObject const* obj, std::vector<IElement*> *vec_eles)
 {
     switch (obj->getGeoType()) {
         case GeoLib::POLYLINE:
             findEdgeElementsOnPolyline(msh, static_cast<GeoLib::Polyline const*>(obj), vec_eles);
+            break;
+        case GeoLib::SURFACE:
+            findFaceElementsOnSurface(msh, static_cast<GeoLib::Surface const*>(obj), vec_eles);
             break;
         default:
             throw "This geo type is not supported in MeshLib::findNodesOnGeometry()";
@@ -188,6 +220,34 @@ void findEdgeElements(IMesh& msh, IElement &e, std::vector<IElement*> &edges)
     }
 }
 
+
+void findFaceElements(IMesh& msh, IElement &e, std::vector<IElement*> &faces)
+{
+    std::vector<size_t> vec_face_nodes;
+    const size_t n_faces = e.getNumberOfEdges();
+    for (size_t j=0; j<n_faces; j++) {
+        //check if already exists
+        e.getNodeIDsOfEdges(j, vec_face_nodes);
+        IElement* face = findFaceElement(faces, vec_face_nodes);
+        if (face!=0) {
+            if (e.getFace(j)==0)
+                e.setFace(j, face);
+            continue;
+        }
+
+        face = e.getFace(j);
+        if (face==0) {
+            //if new, create
+            if (face==0) {
+                face = createFaceElement(msh, e, j);
+            }
+            e.setFace(j, face);
+        }
+        faces.push_back(face);
+
+    }
+}
+
 /// get a list of edge elements of given elements
 void createEdgeElements(IMesh * msh, const std::vector<size_t> &selected_ele, std::vector<IElement*> &edges)
 {
@@ -206,6 +266,13 @@ void createEdgeElements(IMesh * msh)
     }
 };
 
+void createFaceElements(IMesh * msh, const std::vector<size_t> &selected_ele, std::vector<IElement*> &faces)
+{
+    for (size_t i=0; i<selected_ele.size(); i++) {
+        IElement *e = msh->getElement(selected_ele[i]);
+        findFaceElements(*msh, *e, faces);
+    }
+}
 
 
 MeshLib::CoordinateSystemType::type getCoordinateSystemFromBoundingBox(const GeoLib::AxisAlignedBoundingBox &bbox)

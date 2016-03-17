@@ -41,6 +41,7 @@ NeumannBC2FEM::NeumannBC2FEM(const MeshLib::IMesh &msh, const double &current_ti
             break;
         }
         case GeoLib::POLYLINE:
+        case GeoLib::SURFACE:
         {
             // find edge elements on the geo
             std::vector<MeshLib::IElement*> vec_edge_eles;

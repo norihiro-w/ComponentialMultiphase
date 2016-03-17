@@ -43,6 +43,8 @@ void findBoundaryElementsOnGeometry(IMesh * msh, GeoLib::GeoObject const* obj, s
 /// find edge elements on a given polyline
 void findEdgeElementsOnPolyline(IMesh * msh, GeoLib::Polyline const* poly, std::vector<IElement*> *vec_edges_on_poly);
 
+/// find face elements on a given surface
+void findFaceElementsOnSurface(IMesh * msh, GeoLib::Surface const* poly, std::vector<IElement*> *vec_faces_on_surf)
 
 
 /// get a list of elements connected to one of give nodes
@@ -59,6 +61,9 @@ void createEdgeElements(IMesh * msh, const std::vector<size_t> &selected_ele, st
 
 /// get a list of edge elements of given elements
 void createEdgeElements(IMesh * msh);
+
+/// get a list of edge elements of given elements
+void createFaceElements(IMesh * msh, const std::vector<size_t> &selected_ele, std::vector<IElement*> &faces);
 
 /// calculate geometric properties of an unstructured mesh
 void calculateMeshGeometricProperties(UnstructuredMesh &msh);
